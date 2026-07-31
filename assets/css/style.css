@@ -957,7 +957,9 @@ a.contact-value:hover { color: var(--accent); }
   .gallery-item-large img { height: 220px; }
 }
 
-@media (max-width: 480px) {
+.hero-photo-col { display: flex; justify-content: center; order: -1; }
+   .hero-photo-wrap { display: flex; flex-direction: column; align-items: center; width: 100%; }
+   .hero-text-col { width: 100%; }
   .hero-name { font-size: 1.85rem; }
   .hero-thesis { font-size: 1.05rem; }
   .hero-photo { width: 150px; height: 150px; }
