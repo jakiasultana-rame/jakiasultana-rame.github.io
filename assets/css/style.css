@@ -204,6 +204,7 @@ em { font-style: italic; }
   padding-left: 20px;
 }
 .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-ctas .btn { min-width: 180px; justify-content: center; }
 
 /* --- BUTTONS --- */
 .btn {
@@ -828,9 +829,22 @@ em { font-style: italic; }
   color: var(--accent);
   border-color: #fff;
 }
+.section-accent .btn-primary {
+  background: #fff;
+  color: var(--accent);
+  border-color: #fff;
+}
 .section-accent .btn-primary:hover {
   background: rgba(255,255,255,0.9);
   color: var(--accent-dark);
+}
+.section-accent .btn-secondary {
+  color: #fff;
+  border-color: #fff;
+}
+.section-accent .btn-secondary:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
 }
 
 /* --- CONTACT --- */
