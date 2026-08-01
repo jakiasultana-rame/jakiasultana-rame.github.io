@@ -65,7 +65,7 @@
     observer.observe(el);
   });
 
-  // --- Active nav link on scroll ---
+ // --- Active nav link on scroll ---
   var sections = document.querySelectorAll('section[id]');
   var navItems = document.querySelectorAll('.nav-links a');
 
@@ -87,5 +87,20 @@
       }
     });
   });
+
+  // --- Load live Google Scholar stats ---
+  fetch('assets/data/scholar-stats.json')
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      var citEl = document.getElementById('scholar-citations');
+      var hEl = document.getElementById('scholar-hindex');
+      var i10El = document.getElementById('scholar-i10index');
+      if (citEl && data.citations != null) citEl.textContent = data.citations;
+      if (hEl && data.hIndex != null) hEl.textContent = data.hIndex;
+      if (i10El && data.i10Index != null) i10El.textContent = data.i10Index;
+    })
+    .catch(function () {
+      // if the fetch fails, the hardcoded numbers already in the HTML stay as-is
+    });
 
 })();
