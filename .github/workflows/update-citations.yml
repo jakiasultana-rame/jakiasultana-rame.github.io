@@ -21,7 +21,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install scholarly
-        run: pip install scholarly
+       run: pip install scholarly "httpx<0.28"
 
       - name: Fetch citation stats
         run: python scripts/fetch_scholar_stats.py
