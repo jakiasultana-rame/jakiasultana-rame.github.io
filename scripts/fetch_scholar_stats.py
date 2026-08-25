@@ -1,18 +1,11 @@
 import json
 import datetime
 import sys
-from scholarly import scholarly, ProxyGenerator
+import time
+from scholarly import scholarly
 
 SCHOLAR_ID = "KH8dL3sAAAAJ"
 OUTPUT_PATH = "assets/data/scholar-stats.json"
-
-
-def setup_proxy():
-    pg = ProxyGenerator()
-    ok = pg.FreeProxies()
-    if ok:
-        scholarly.use_proxy(pg)
-    return ok
 
 
 def fetch():
@@ -27,12 +20,19 @@ def fetch():
 
 
 def main():
-    setup_proxy()  # fine if this returns False, we still try direct after
-    try:
-        data = fetch()
-    except Exception as e:
-        print(f"Could not fetch fresh stats ({e}). Leaving existing file unchanged.")
-        sys.exit(0)  # don't fail the workflow just because Scholar blocked us today
+    data = None
+    for attempt in range(3):
+        try:
+            data = fetch()
+            break
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+            if attempt < 2:
+                time.sleep(20 * (attempt + 1))
+
+    if data is None:
+        print("Could not fetch fresh stats after 3 attempts. Leaving existing file unchanged.")
+        sys.exit(0)
 
     with open(OUTPUT_PATH, "w") as f:
         json.dump(data, f, indent=2)
