@@ -2,10 +2,22 @@ import json
 import datetime
 import sys
 import time
-from scholarly import scholarly
+from scholarly import scholarly, ProxyGenerator
 
 SCHOLAR_ID = "KH8dL3sAAAAJ"
 OUTPUT_PATH = "assets/data/scholar-stats.json"
+
+
+def setup_proxy():
+    try:
+        pg = ProxyGenerator()
+        if pg.FreeProxies():
+            scholarly.use_proxy(pg)
+            print("Proxy configured.")
+        else:
+            print("No working free proxy found, trying direct connection.")
+    except Exception as e:
+        print(f"Proxy setup failed ({e}), trying direct connection.")
 
 
 def fetch():
@@ -20,6 +32,8 @@ def fetch():
 
 
 def main():
+    setup_proxy()
+
     data = None
     for attempt in range(3):
         try:
