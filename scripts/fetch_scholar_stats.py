@@ -22,7 +22,7 @@ def setup_proxy():
 
 def fetch():
     author = scholarly.search_author_id(SCHOLAR_ID)
-     author = scholarly.fill(author, sections=["basics", "indices"])
+    author = scholarly.fill(author, sections=["basics", "indices"])
     return {
         "citations": author.get("citedby", 0),
         "hIndex": author.get("hindex", 0),
